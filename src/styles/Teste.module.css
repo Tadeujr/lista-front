@@ -1,0 +1,24 @@
+.menu {
+  width: 180vh;
+  height: 14vh;
+  /* background: #fbf7f7df; */
+  /* border-radius: 3vh; */
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 61px;
+}
+
+.menu .icon {
+  margin-top: 20px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.page {
+  text-align: center;
+}
