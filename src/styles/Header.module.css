@@ -1,0 +1,22 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 61px;
+  text-align: center;
+}
+
+.menu .icon {
+  margin-top: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+.page {
+  margin-top: 80px;
+  text-align: center;
+}
+.content {
+  position: sticky;
+  margin-top: 20;
+}

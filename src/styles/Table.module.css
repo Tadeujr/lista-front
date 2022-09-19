@@ -1,0 +1,56 @@
+
+.option{
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    
+ }
+
+ .value{
+    
+    grid-column: 2;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: -60px;
+    color: #fff;
+    background-color: #1e90ff;
+    border: 1px solid #1e90ff;
+    border-radius: 5px;
+    
+}
+.tbZebra {
+  /*Acessa a tabela*/
+ border: 1px solid #1e90ff;  
+} 
+
+.tbZebra thead {
+    
+  /*Acessa o cabeçalho da tabela*/
+  background-color: #1e90ff; /*Adiciona um Background*/
+  
+}
+
+.tbZebra tr th {
+    
+  /*Acessa o Table Head*/
+  padding: 5px; /*Espaçamento de 5PX*/
+  color: #fff; /*Cor do texto para branco*/
+  text-align: left; /*Alinhamento do texto para esquerda*/
+  
+}
+
+.tbZebra tbody tr {
+  /*Acessa as linhas do tbody*/
+  text-align: center;
+  background-color: #ffffff; /*Adiciona um Background*/
+  padding: 5px; /*Espaçamento de 5PX*/
+}
+
+/*
+    even = Ímpar, a cada linha onde for valor Ímpar
+    odd  = Par, a cada linha onde o valor for Par
+*/
+.tbZebra tbody tr:nth-child(even) {
+  /*Acessa cada filho*/
+  background-color: #87ceeb; /*Altera a cor de fundo para a linha*/
+}

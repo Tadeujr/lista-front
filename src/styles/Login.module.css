@@ -1,0 +1,11 @@
+.boxLogin {
+  margin-top: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  background-color: brown;
+}
+.login div {
+  display: grid;
+  justify-content: center;
+}
