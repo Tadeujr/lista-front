@@ -16,11 +16,11 @@ export default function Routes() {
       <Switch>
         {/* <Route path="/" exact component={Login} />
         <Route path="/registeruser" component={RegisterUser} /> */}
-        <GuardedRoute
+        {/* <GuardedRoute
           path="/product"
           component={Table}
           auth={autenticado}
-        />
+        /> */}
         {/* <GuardedRoute
           path="/profileong"
           component={ProfileOng}

@@ -14,7 +14,7 @@ export default function Teste(props:TesteProps){
 
     return (<>
         <div className={styles.menu}>
-                <div className={styles.icon}><a href="/home"><HomeIcon/>Home</a></div>
+                {/* <div className={styles.icon}><a href="/home"><HomeIcon/>Home</a></div> */}
                 <div className={styles.icon}><Link href="/analitic"><a><ChartBarIcon/>Gastos</a></Link></div>
                 <div className={styles.icon}><Link href="/table"><a><ClipboardDocumentListIcon/>Tabela</a></Link></div>
                 <div className={styles.icon}><Link href="/profile"><a><UserIcon/>Perfil</a></Link></div>
