@@ -12,7 +12,7 @@ export default function Table() {
       setList2(response.data);
     });
   }, []);
-  console.log(list2)
+ 
 //   const list2 =     [
 //     {
 //         "productName": "BATATA DOCE kg",
