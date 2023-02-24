@@ -6,8 +6,8 @@ const apiService = () => {
     baseURL: "https://lista-backend.herokuapp.com/api/v1",
   });
   axiosInstance.interceptors.request.use(
-    (config) => {
-      const store = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkY2ZhZjZjMS0xMDBjLTRiZTgtYjE5My03OGE0YzBmOTRlNTgiLCJlbWFpbCI6InRhZGV1X2p1bmlvckBvdXRsb29rLmNvbSIsImlhdCI6MTY3NzAyMjM1MCwiZXhwIjoxNjc3MTk1MTUwfQ.6uKmFB2lUZuHnG76Oq7DWX66784q_WjAFs3ZszufVAY";
+    (config) => { //apenas para testar a Lista
+      const store = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkY2ZhZjZjMS0xMDBjLTRiZTgtYjE5My03OGE0YzBmOTRlNTgiLCJlbWFpbCI6InRhZGV1X2p1bmlvckBvdXRsb29rLmNvbSIsImlhdCI6MTY3NzI0MzIxNSwiZXhwIjoxNjc3NDE2MDE1fQ._6tEObQ7yc9kc_43XaS6t3ouSqBCs34h2miGNIUPoco";
       if (store) {
         
         config.headers["Authorization"] = ` Bearer ${store}`;
