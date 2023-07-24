@@ -2,6 +2,7 @@ import styles from "../styles/Login.module.css";
 import React, { useState } from "react";
 import apiSevice from "../services/api";
 import { useRouter } from 'next/router';
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -50,10 +51,10 @@ export default function Login() {
         />
         {errorMessage && <p className={styles.aviso}>{errorMessage}</p>}
         <div>
-          <a href="/">Esqueci minha senha</a>
-          <a className={styles.insc} href="/">
+          <Link href="/">Esqueci minha senha</Link>
+          <Link className={styles.insc} href="/">
             Me cadastrar
-          </a>
+          </Link>
         </div>
         <input type="submit" value="Acessar" className={styles.btn} />
       </form>

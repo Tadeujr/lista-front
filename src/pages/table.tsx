@@ -7,7 +7,7 @@ export default function Table() {
   const [list2, setList2] = useState([]);
 
   useEffect(() => {
-    apiService.get("/product/1").then((response) => {
+    apiService.get("/product").then((response) => {
       setList2(response.data);
     });
   }, []);
