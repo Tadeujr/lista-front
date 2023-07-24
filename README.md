@@ -58,45 +58,4 @@ export default function Table() {
     return `${day}/${month}/${year}`;
   };
 
-  return (
-    <>
-      <Header page="Lista" />
-      
-      <div className={styles.option}>
-        {/* <div className={styles.value}>R$ {199999}</div> */}
-        <table className={styles.tbZebra}>
-          <thead>
-            <tr>
-              <th>Loja</th>
-              <th>Categoria</th>
-              <th>Produto</th>
-              <th>Marca</th>
-              <th>Unidade Comercial</th>
-              <th>Preço</th>
-              <th>Data de Compra</th>
-              <th>Unidade</th>
-              <th>Comprado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list2.map((product, index) => {
-              return (
-                <tr key={index}>
-                  <td>{product.store}</td>
-                  <td>{product.category}</td>
-                  <td>{product.productName}</td>
-                  <td>{product.brand}</td>
-                  <td>{product.commercialUnit}</td>
-                  <td>{product.price}</td>
-                  <td>{getCurrentDate()}</td> {/* Usando a função para obter a data atual */}
-                  <td>{product.unity}</td>
-                  <td><input className={styles.container} type="checkbox" name="bought" /></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
-}
+ 
