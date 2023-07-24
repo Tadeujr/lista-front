@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/api.js", "src/routes.js",
+    "**/*.tsx", "src/services/api.js", "routes.js", "src/services/privateRoutes.js", "src/services/guardedRoutes.js", "index.txs",
     
   ],
   "exclude": [

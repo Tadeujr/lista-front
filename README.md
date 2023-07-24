@@ -32,3 +32,71 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+import { useState, useEffect } from 'react';
+import Header from "../components/header";
+import styles from "../styles/Table.module.css";
+import apiService from "../services/api/api";
+
+export default function Table() {
+  const [list2, setList2] = useState([]);
+
+  useEffect(() => {
+    apiService.get("/product/1").then((response) => {
+      setList2(response.data);
+    });
+  }, []);
+
+  // Função para obter a data atual formatada (dd/mm/aaaa)
+  const getCurrentDate = () => {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  return (
+    <>
+      <Header page="Lista" />
+      
+      <div className={styles.option}>
+        {/* <div className={styles.value}>R$ {199999}</div> */}
+        <table className={styles.tbZebra}>
+          <thead>
+            <tr>
+              <th>Loja</th>
+              <th>Categoria</th>
+              <th>Produto</th>
+              <th>Marca</th>
+              <th>Unidade Comercial</th>
+              <th>Preço</th>
+              <th>Data de Compra</th>
+              <th>Unidade</th>
+              <th>Comprado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list2.map((product, index) => {
+              return (
+                <tr key={index}>
+                  <td>{product.store}</td>
+                  <td>{product.category}</td>
+                  <td>{product.productName}</td>
+                  <td>{product.brand}</td>
+                  <td>{product.commercialUnit}</td>
+                  <td>{product.price}</td>
+                  <td>{getCurrentDate()}</td> {/* Usando a função para obter a data atual */}
+                  <td>{product.unity}</td>
+                  <td><input className={styles.container} type="checkbox" name="bought" /></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
