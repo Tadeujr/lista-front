@@ -7,6 +7,7 @@ import Home from "./src/pages/home";
 import GuardedRoute from "./src/services/guardedRoutes";
 import Login from './src/pages/login';
 import PrivateRoute from "./src/services/privateRoutes";
+import RegistrationList from "./src/pages/cadList";
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <PrivateRoute path="/table" component={<Table/>} auth={autenticado} />
         <PrivateRoute path="/analitic" component={<Analitic/>} auth={autenticado} />
         <PrivateRoute path="/profile" component={<Profile/>} auth={autenticado} />
+        <PrivateRoute path="/cadList" component={<RegistrationList/>} auth={autenticado} />
       </Routes>
     </BrowserRouter>
   );

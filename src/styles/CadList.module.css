@@ -1,0 +1,77 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.formCadList {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinhar os itens no centro verticalmente */
+  justify-content: center; /* Centralizar os inputs horizontalmente */
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 40px;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+  gap: 5px;
+}
+
+/* Restante do CSS permanece igual */
+.formItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinhar os itens à esquerda */
+  width: 100%;
+  max-width: 500px; /* Aumentar a largura máxima do input */
+}
+
+.formItem label {
+  font-size: 16px; /* Aumentar o tamanho do texto para 16px */
+}
+
+.formItem input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px; /* Aumentar o tamanho do texto para 16px */
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  border-radius: 4px;
+  transition: all linear 160ms;
+  outline: none;
+}
+
+.formItem .checkboxLabel {
+  margin-bottom: 5px; /* Adicionar espaço entre o texto "Produto Adquirido" e o checkbox */
+}
+
+.formItem .checkboxWrapper {
+  display: flex;
+  
+}
+
+.formItem .checkboxWrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.btn {
+  background-color: #4191e1;
+  color: #fff;
+  padding: 18px;
+  font-size: 16px; /* Aumentar o tamanho do texto do botão para 16px */
+  border-radius: 4px;
+  font-weight: 600;
+  border: none !important;
+  transition: all linear 160ms;
+  cursor: pointer;
+  margin: 0 !important;
+}
+
+.btn:hover {
+  background-color: #0086ff;
+}

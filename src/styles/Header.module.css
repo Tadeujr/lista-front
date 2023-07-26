@@ -6,23 +6,39 @@
   text-align: center;
 }
 
-.menu  a{
+.menu a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
-  width: 40px;
-  height: 40px;
+}
+
+.menu a span {
+  margin-top: 8px;
+}
+
+.menu svg {
+  width: 40px; /* Definindo o tamanho dos ícones */
 }
 
 .page {
   margin-top: 80px;
   text-align: center;
 }
+
 .content {
   position: sticky;
-  margin-top: 20;
+  margin-top: 20px;
 }
 
-.menu a :hover{
-  color:#0086ff;
-  
+.menu a:hover {
+  color: #0086ff;
 }
 
+.menu a.exitLink:hover {
+  color: red; /* Definindo a cor vermelha para o texto "Sair" no hover */
+}
+
+.menu a.exitLink:hover svg {
+  fill: red; /* Definindo a cor vermelha para o ícone "Sair" no hover */
+}
