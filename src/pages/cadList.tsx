@@ -138,7 +138,7 @@ export default function RegistrationList() {
             </div>
           </div>
           <div className={styles.formItem}>
-            <button className={styles.btn} type="submit">
+            <button id="btnCadProduct" className={styles.btn} type="submit">
               Cadastrar
             </button>
           </div>

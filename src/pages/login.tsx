@@ -52,7 +52,7 @@ export default function Login() {
         {errorMessage && <p className={styles.aviso}>{errorMessage}</p>}
         <div>
           <Link href="/">Esqueci minha senha</Link>
-          <Link className={styles.insc} href="/">
+          <Link className={styles.insc} href="/newUser">
             Me cadastrar
           </Link>
         </div>

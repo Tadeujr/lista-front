@@ -46,22 +46,15 @@ export default function Header(props: HeaderProps) {
             <span>Gastos</span>
           </a>
         </Link>
-        <Link href="/profile">
-          <a>
-            <UserIcon />
-            <span>Perfil</span>
-          </a>
-        </Link>
         <Link href="/login">
           <a onClick={clearLocalStorage} className={styles.exitLink}>
             <XMarkIcon />{" "}
-            {/* Não é necessário adicionar a classe "exit-icon" */}
             <span>Sair</span>
           </a>
         </Link>
       </div>
       <h1 className={styles.page}>{props.page}</h1>
-      <div className={styles.content}>{/* Conteúdo do componente */}</div>
+      <div className={styles.content}></div>
     </>
   );
 }

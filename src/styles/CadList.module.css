@@ -1,57 +1,71 @@
+/* CadList.module.css */
 .page {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #023047;
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-content: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .formCadList {
+  width: 700px;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Alinhar os itens no centro verticalmente */
-  justify-content: center; /* Centralizar os inputs horizontalmente */
-  background-color: #fff;
-  border-radius: 7px;
-  padding: 40px;
-  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
-  gap: 5px;
+  background: #ffffff;
+  box-shadow: 1px 0px 1.2px 0px #e3e3e3;
+  border-radius: 3px;
+  padding: 1em;
+}
+
+.formCadList h1 {
+  font-size: 2.3em;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  text-align: center; /* Alinhando o título no centro horizontalmente */
 }
 
 /* Restante do CSS permanece igual */
 .formItem {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinhar os itens à esquerda */
-  width: 100%;
-  max-width: 500px; /* Aumentar a largura máxima do input */
+  grid-row: auto;
+  align-items: flex-start;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  position: relative;
 }
 
 .formItem label {
-  font-size: 16px; /* Aumentar o tamanho do texto para 16px */
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .formItem input {
   width: 100%;
   padding: 15px;
-  font-size: 16px; /* Aumentar o tamanho do texto para 16px */
+  font-size: 16px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
-  margin-top: 5px;
   border-radius: 4px;
   transition: all linear 160ms;
   outline: none;
 }
 
 .formItem .checkboxLabel {
-  margin-bottom: 5px; /* Adicionar espaço entre o texto "Produto Adquirido" e o checkbox */
+  margin-bottom: 5px;
 }
 
 .formItem .checkboxWrapper {
   display: flex;
-  
 }
 
 .formItem .checkboxWrapper input[type="checkbox"] {
@@ -63,15 +77,48 @@
   background-color: #4191e1;
   color: #fff;
   padding: 18px;
-  font-size: 16px; /* Aumentar o tamanho do texto do botão para 16px */
+  font-size: 16px;
   border-radius: 4px;
   font-weight: 600;
   border: none !important;
   transition: all linear 160ms;
   cursor: pointer;
-  margin: 0 !important;
 }
 
 .btn:hover {
   background-color: #0086ff;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.togglePasswordBtn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonContainer > * {
+  margin-right: 20px; /* Espaço entre os elementos */
+}
+
+.backLink {
+  text-decoration: none;
 }
