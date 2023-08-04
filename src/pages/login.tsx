@@ -1,6 +1,6 @@
 import styles from "../styles/Login.module.css";
 import React, { useState } from "react";
-import apiSevice from "../services/api";
+import apiService from "../services/api";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 
@@ -15,11 +15,13 @@ export default function Login() {
     
     if (email !== "" || password !== "") {
       try {
-        const response = await apiSevice.post("/auth/login", {
+        const response = await apiService.post("/auth/login", {
           email,
           password,
         });
-        localStorage.setItem("list@token", JSON.stringify(response.data.token));
+        localStorage.setItem("mylist@token", JSON.stringify(response.data.token));
+       // Armazenar o email no LocalStorage
+       localStorage.setItem("mylist@idUser", response.data.idUser);
         router.push("/");
       } catch (error) {
         setErrorMessage("Login ou senha incorretos.");

@@ -55,3 +55,22 @@
   /*Acessa cada filho*/
   background-color: #ceffff; /*Altera a cor de fundo para a linha*/
 }
+
+.btn {
+  background-color: #4191e1;
+  color: #fff;
+  padding: 18px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  border: none !important;
+  transition: all linear 160ms;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0086ff;
+}
+.checkedRow {
+  text-decoration: line-through; /* Adicione qualquer estilo de destaque que você desejar */
+}

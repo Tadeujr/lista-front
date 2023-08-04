@@ -6,7 +6,7 @@ const apiService = () => {
   });
   axiosInstance.interceptors.request.use(
     (config) => {
-      let store = JSON.parse(localStorage.getItem("list@token")); //transformando o storage em json
+      let store = JSON.parse(localStorage.getItem("mylist@token")); //transformando o storage em json
       if (store) {
         config.headers["Authorization"] = `Bearer ${store}`;
       }
