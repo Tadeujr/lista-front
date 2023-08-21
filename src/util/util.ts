@@ -15,6 +15,7 @@ const formatDate = (value) => {
 };
 
 const findList = async (dateListSend) => {
+  
   const formattedDateList = await formatDate(dateListSend);
   const userId = localStorage.getItem("mylist@idUser");
 
@@ -28,7 +29,6 @@ const findList = async (dateListSend) => {
       return response.data[0].id;
     } else {
       // Caso não encontre a lista, você pode tratar aqui de alguma forma
-      console.log("Lista não encontrada!");
       return null;
     }
   } catch (error) {

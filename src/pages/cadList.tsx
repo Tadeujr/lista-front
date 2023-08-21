@@ -1,4 +1,3 @@
-// Arquivo: CadList.tsx
 import { useState } from "react";
 import apiService from "../services/api";
 import styles from "../styles/CadList.module.css";
@@ -11,34 +10,31 @@ export default function RegistrationList() {
   const [brand, setBrand] = useState("");
   const [unity, setUnity] = useState(0.0);
   const [commercialUnit, setCommercialUnit] = useState("");
-  const [price, setPrice] = useState(0.0); // Alterado para o tipo number
+  const [price, setPrice] = useState(0.0);
   const [store, setStore] = useState("");
   const [buyDate, setBuyDate] = useState("");
   const [wasAcquired, setWasAcquired] = useState(false);
   const [list, setList] = useState("");
   const [dateList, setDateList] = useState("");
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      productName,
-      category,
-      brand,
-      unity,
-      commercialUnit,
-      price,
-      store,
-      buyDate,
-      wasAcquired,
-      list,
-    };
-
     try {
-      console.log(newProduct);
+      const listId = await appUtil.findList(list);
+      const newProduct = {
+        productName,
+        category,
+        brand,
+        unity,
+        commercialUnit,
+        price,
+        store,
+        buyDate,
+        wasAcquired,
+        list: listId,
+      };
+
       const response = await apiService.post("/product", [newProduct]);
-      console.log("Produto cadastrado ", response.data);
-      // Limpar campos após o cadastro bem-sucedido
       setProductName("");
       setCategory("");
       setBrand("");
@@ -49,6 +45,7 @@ export default function RegistrationList() {
       setBuyDate("");
       setWasAcquired(false);
       setList("");
+      alert("Produto cadastrado com sucesso!"); // Mensagem de sucesso
     } catch (error) {
       console.error("Erro ao cadastrar produto ", error);
     }
@@ -65,11 +62,9 @@ export default function RegistrationList() {
 
     try {
       const response = await apiService.post("/shoppinglist/newlist", newList);
-      console.log("Nova lista cadastrada: ", response.data);
-      // Limpar campo após o cadastro bem-sucedido
-      setList(response.data.id); // Definir o id da nova lista criada
-      // Vamos chamar a função findList aqui para obter o id da lista existente
+      setList(response.data.id);
       setDateList("");
+      alert("Nova lista cadastrada com sucesso!"); // Mensagem de sucesso
     } catch (error) {
       console.error("Erro ao cadastrar nova lista: ", error);
     }
@@ -80,7 +75,6 @@ export default function RegistrationList() {
       <Header page="Cadastro de Produtos" />
       <div>
         <form onSubmit={handleNewListSubmit} className={styles.formCadList}>
-          {/* Campos para cadastrar nova lista */}
           <div className={styles.formItem}>
             <label htmlFor="dateList">Data da Lista</label>
             <input
@@ -153,11 +147,11 @@ export default function RegistrationList() {
             <div className={styles.formItem}>
               <label htmlFor="price">Preço</label>
               <input
-                type="number" // Alterado para o tipo "number"
+                type="number"
                 id="price"
                 placeholder="Insira o preço do produto"
                 value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value))} // Conversão para número
+                onChange={(e) => setPrice(parseFloat(e.target.value))}
               />
             </div>
             <div className={styles.formItem}>
@@ -176,8 +170,8 @@ export default function RegistrationList() {
                 type="text"
                 id="buyDate"
                 placeholder="Insira a data lista de compra (formato dd/mm/aaaa)"
-                value={buyDate}
-                onChange={(e) => setBuyDate(appUtil.formatDate(e.target.value))}
+                value={list}
+                onChange={(e) => setList(appUtil.formatDate(e.target.value))}
               />
             </div>
             <div className={styles.formItem}>
