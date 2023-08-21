@@ -16,6 +16,7 @@ export default function RegistrationList() {
   const [wasAcquired, setWasAcquired] = useState(false);
   const [list, setList] = useState("");
   const [dateList, setDateList] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ export default function RegistrationList() {
       setBuyDate("");
       setWasAcquired(false);
       setList("");
-      alert("Produto cadastrado com sucesso!"); // Mensagem de sucesso
+      alert("Produto cadastrado com sucesso!");
     } catch (error) {
       console.error("Erro ao cadastrar produto ", error);
     }
@@ -54,17 +55,26 @@ export default function RegistrationList() {
   const handleNewListSubmit = async (e) => {
     e.preventDefault();
     const formattedDateList = await appUtil.formatDate(dateList);
-    const newList = {
-      total: 0,
-      dateList: formattedDateList,
-      user: localStorage.getItem("mylist@idUser"),
-    };
 
     try {
+      const listId = await appUtil.findList(formattedDateList);
+
+      if (listId) {
+        setErrorMessage("Já existe uma lista com essa data.");
+        return;
+      }
+
+      const newList = {
+        total: 0,
+        dateList: formattedDateList,
+        user: localStorage.getItem("mylist@idUser"),
+      };
+
       const response = await apiService.post("/shoppinglist/newlist", newList);
       setList(response.data.id);
       setDateList("");
-      alert("Nova lista cadastrada com sucesso!"); // Mensagem de sucesso
+      setErrorMessage("");
+      alert("Nova lista cadastrada com sucesso!");
     } catch (error) {
       console.error("Erro ao cadastrar nova lista: ", error);
     }
@@ -82,8 +92,12 @@ export default function RegistrationList() {
               id="dateList"
               placeholder="Insira a data da lista (formato dd/mm/aaaa)"
               value={dateList}
-              onChange={(e) => setDateList(appUtil.formatDate(e.target.value))}
+              onChange={(e) => {
+                setDateList(appUtil.formatDate(e.target.value));
+                setErrorMessage("");
+              }}
             />
+            {errorMessage && <p className={styles.errorMsg}>{errorMessage}</p>}
           </div>
           <div className={styles.formItem}>
             <button id="btnNewList" className={styles.btn} type="submit">
@@ -91,7 +105,6 @@ export default function RegistrationList() {
             </button>
           </div>
         </form>
-
         <div className={styles.container}>
           <form onSubmit={handleSubmit} className={styles.formCadList}>
             <div className={styles.formItem}>
