@@ -1,6 +1,5 @@
 import apiService from "../services/api";
 
-// Função para formatar a data com barras no formato dd/mm/aaaa
 const formatDate = (value) => {
   const numbers = value.replace(/\D/g, "").substring(0, 8);
   if (numbers.length > 4) {
@@ -15,7 +14,6 @@ const formatDate = (value) => {
 };
 
 const findList = async (dateListSend) => {
-  
   const formattedDateList = await formatDate(dateListSend);
   const userId = localStorage.getItem("mylist@idUser");
 
@@ -25,10 +23,8 @@ const findList = async (dateListSend) => {
     });
     
     if (response.data && response.data.length > 0) {
-      // Se a lista for encontrada, utilizamos o id da primeira lista encontrada
       return response.data[0].id;
     } else {
-      // Caso não encontre a lista, você pode tratar aqui de alguma forma
       return null;
     }
   } catch (error) {
@@ -37,4 +33,41 @@ const findList = async (dateListSend) => {
   }
 };
 
-export default { formatDate, findList};
+const findAllList = async () => {
+  const userId = localStorage.getItem("mylist@idUser");
+  try {
+    const response = await apiService.get(`shoppinglist/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao consultar as listas cadastradas: ", error);
+    return null;
+  }
+};
+
+const formatDateForServer = (date) => {
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
+const checkIfDateHasList = async (date) => {
+  const formattedDate = formatDateForServer(date);
+
+  try {
+    const lists = await findAllList();
+    const listExists = lists.some(list => list.dateList === formattedDate);
+    return listExists;
+  } catch (error) {
+    console.error("Erro ao verificar se há lista para a data: ", error);
+    return false;
+  }
+};
+
+export default {
+  formatDate,
+  findList,
+  findAllList,
+  formatDateForServer,
+  checkIfDateHasList, 
+};

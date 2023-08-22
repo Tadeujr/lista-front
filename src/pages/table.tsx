@@ -3,20 +3,23 @@ import apiService from "../services/api";
 import Header from "../components/header";
 import styles from "../styles/Table.module.css";
 import appUtil from '../util/util';
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import "react-calendar/dist/Calendar.css";
 
 export default function Table() {
   const [list, setList] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
-  const [dateList, setDateList] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [listId, setListId] = useState(null);
   const [returnList, setReturnList] = useState("");
+  const [markedDates, setMarkedDates] = useState([]);
 
   const checkDatabaseUpdates = async () => {
     try {
       const response = await apiService.get(`/product/${listId}`);
       setList(response.data);
 
-      // Atualizar o estado local de checkedItems após obter os dados
       const newCheckedItems = response.data.reduce((obj, product) => {
         obj[product.id] = product.wasAcquired;
         return obj;
@@ -43,40 +46,92 @@ export default function Table() {
     }
   };
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setListId(null);
+  };
+
   const handleSearchList = async () => {
-    const formattedDate = appUtil.formatDate(dateList); // Formata a data para YYYY-MM-DD
-    const idList = await appUtil.findList(formattedDate);
-    setListId(idList); // Armazena o ID da lista no estado
-    if (!idList) {
-      setReturnList("Lista não encontrada!");
+    const formattedDate = appUtil.formatDateForServer(selectedDate);
+  
+    try {
+      const lists = await appUtil.findAllList();
+      const formattedDates = lists.map(list => list.dateList);
+      setMarkedDates(formattedDates);
+  
+      const filteredLists = lists.filter(list => {
+        const listFormattedDate = list.dateList.split('/').join('/');
+        return listFormattedDate === formattedDate;
+      });
+  
+      if (filteredLists.length > 0) {
+        setListId(filteredLists[0].id);
+        setReturnList("");
+      } else {
+        setListId(null);
+        setReturnList("Não existe lista para essa data!");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar listas: ", error);
     }
   };
+  
+
+  const DynamicCalendar = dynamic(() => import("react-calendar"), {
+    ssr: false,
+    loading: () => <p>Carregando...</p>,
+  });
 
   useEffect(() => {
     if (listId !== null) {
       checkDatabaseUpdates();
       const interval = setInterval(checkDatabaseUpdates, 90 * 1000);
-
       return () => {
         clearInterval(interval);
       };
     }
   }, [listId]);
 
+  useEffect(() => {
+    const loadMarkedDates = async () => {
+      try {
+        const lists = await appUtil.findAllList();
+        const formattedDates = lists.map(list => list.dateList);
+        setMarkedDates(formattedDates);
+      } catch (error) {
+        console.error("Erro ao carregar as datas marcadas: ", error);
+      }
+    };
+
+    loadMarkedDates();
+  }, []);
+
   return (
     <>
       <Header page="Lista" />
 
       <div className={styles.option}>
-        <input
-          type="text"
-          value={dateList}
-          onChange={(e) => setDateList(appUtil.formatDate(e.target.value))}
-          placeholder="Digite a data da lista (dd/mm/aaaa)"
-        />
-        <button className={styles.btn} onClick={handleSearchList}>Buscar Lista</button>
+        <div className={styles.container}>
+          <div className={styles.calendarContainer}>
+            <Suspense fallback={<p>Carregando...</p>}>
+              <DynamicCalendar
+                onChange={handleDateChange}
+                value={selectedDate}
+                calendarType="gregory"
+                tileContent={({ date }) =>
+                  markedDates.includes(appUtil.formatDateForServer(date)) ? (
+                    <div className={styles.registeredDate}></div>
+                  ) : null
+                }
+              />
+            </Suspense>
+          </div>
+          <button className={styles.btn} onClick={handleSearchList}>
+            Buscar Lista
+          </button>
+        </div>
 
-        {listId !== null ? (
+        {listId !== null && (
           <table className={styles.tbZebra}>
             <thead>
               <tr>
@@ -120,7 +175,9 @@ export default function Table() {
               })}
             </tbody>
           </table>
-        ) : (
+        )}
+
+        {listId === null && (
           <p>{returnList}</p>
         )}
       </div>
