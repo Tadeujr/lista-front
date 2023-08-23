@@ -13,21 +13,21 @@
     padding: px;
     margin-bottom: 20px;
     margin-top: -60px;
-    color: #fff;
-    background-color: #0086ff;
-    border: 1px solid #0086ff;
+    color: #F9F4F5;
+    background-color: #006EDC;
+    border: 1px solid #006EDC;
     border-radius: 5px;
     
 }
 .tbZebra {
   /*Acessa a tabela*/
- border: 1px solid #00ecff; ;  
+ border: 1px solid #473198; ;  
 } 
 
 .tbZebra thead {
     
   /*Acessa o cabeçalho da tabela*/
-  background-color: #0086ff; /*Adiciona um Background*/
+  background-color: #473198; /*Adiciona um Background*/
   
 }
 
@@ -35,7 +35,7 @@
     
   /*Acessa o Table Head*/
   padding: 5px; /*Espaçamento de 5PX*/
-  color: #fff; /*Cor do texto para branco*/
+  color: #F9F4F5; /*Cor do texto para branco*/
   text-align: left; /*Alinhamento do texto para esquerda*/
   text-align: center;
 }
@@ -43,7 +43,7 @@
 .tbZebra tbody tr {
   /*Acessa as linhas do tbody*/
   text-align: center;
-  background-color: #ffffff; /*Adiciona um Background*/
+  background-color: #F9F4F5; /*Adiciona um Background*/
   padding: 5px; /*Espaçamento de 5PX*/
 }
 
@@ -53,7 +53,8 @@
 */
 .tbZebra tbody tr:nth-child(even) {
   /*Acessa cada filho*/
-  background-color: #ceffff; /*Altera a cor de fundo para a linha*/
+  color: #F9F4F5;
+  background-color: #006EDC; /*Altera a cor de fundo para a linha*/
 }
 .center {
   display: flex;
@@ -70,6 +71,12 @@
   padding-left: 12px;
   padding-right: 12px;
 }
+.option input[type="checkbox"] {
+  /* Defina o tamanho desejado para o input checkbox */
+  width: 20px;
+  height: 20px;
+  
+}
 
 .calendarContainer {
   display: flex;
@@ -78,8 +85,8 @@
 }
 
 .btn {
-  background-color: #4191e1;
-  color: #fff;
+  background-color: #473198;
+  color: #F9F4F5;
   padding: 18px;
   font-size: 16px;
   border-radius: 4px;
@@ -95,17 +102,18 @@
 
 
 .btn:hover {
-  background-color: #0086ff;
+  background-color: #6b50ca;
 }
 .checkedRow {
   text-decoration: line-through; /* Adicione qualquer estilo de destaque que você desejar */
+
 }
 
 .registeredDate {
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #0086ff; /* Altere para a cor desejada */
+  background-color: #6b50ca; /* Altere para a cor desejada */
 
 }
 

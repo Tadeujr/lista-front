@@ -1,9 +1,14 @@
+.page{
+  color: #473198;
+}
 .menu {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 120px;
   text-align: center;
+  color: #2a2b2e;
+  margin-top: 10px;
 }
 
 .menu a {
@@ -11,6 +16,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  
 }
 
 .menu a span {
@@ -32,7 +38,8 @@
 }
 
 .menu a:hover {
-  color: #0086ff;
+  color: #473198;
+  
 }
 
 .menu a.exitLink:hover {
