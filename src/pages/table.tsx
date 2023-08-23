@@ -2,23 +2,23 @@ import React, { useState, useEffect } from "react";
 import apiService from "../services/api";
 import Header from "../components/header";
 import styles from "../styles/Table.module.css";
-import appUtil from '../util/util';
+import appUtil from "../util/util";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import "react-calendar/dist/Calendar.css";
 
-export default function Table() {
-  const [list, setList] = useState([]);
+const Table = () => {
+  const [products, setProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [listId, setListId] = useState(null);
-  const [returnList, setReturnList] = useState("");
+  const [message, setMessage] = useState("");
   const [markedDates, setMarkedDates] = useState([]);
 
-  const checkDatabaseUpdates = async () => {
+  const updateProducts = async () => {
     try {
       const response = await apiService.get(`/product/${listId}`);
-      setList(response.data);
+      setProducts(response.data);
 
       const newCheckedItems = response.data.reduce((obj, product) => {
         obj[product.id] = product.wasAcquired;
@@ -37,9 +37,23 @@ export default function Table() {
         [productId]: !prevCheckedItems[productId],
       }));
 
+      const updatedProducts = products.map((product, idx) => {
+        if (idx === index) {
+          return {
+            ...product,
+            wasAcquired: !checkedItems[productId],
+            buyDate: !checkedItems[productId]
+              ? appUtil.formatDateForServer(new Date())
+              : "",
+          };
+        }
+        return product;
+      });
+
+      setProducts(updatedProducts);
+
       await apiService.put(`/product/${productId}`, {
-        ...list[index],
-        wasAcquired: !checkedItems[productId],
+        ...updatedProducts[index],
       });
     } catch (error) {
       console.error("Erro ao atualizar o produto no banco de dados ", error);
@@ -53,29 +67,28 @@ export default function Table() {
 
   const handleSearchList = async () => {
     const formattedDate = appUtil.formatDateForServer(selectedDate);
-  
+
     try {
       const lists = await appUtil.findAllList();
-      const formattedDates = lists.map(list => list.dateList);
+      const formattedDates = lists.map((list) => list.dateList);
       setMarkedDates(formattedDates);
-  
-      const filteredLists = lists.filter(list => {
-        const listFormattedDate = list.dateList.split('/').join('/');
+
+      const filteredLists = lists.filter((list) => {
+        const listFormattedDate = list.dateList.split("/").join("/");
         return listFormattedDate === formattedDate;
       });
-  
+
       if (filteredLists.length > 0) {
         setListId(filteredLists[0].id);
-        setReturnList("");
+        setMessage("");
       } else {
         setListId(null);
-        setReturnList("Não existe lista para essa data!");
+        setMessage("Sem registro de lista para a data.");
       }
     } catch (error) {
       console.error("Erro ao buscar listas: ", error);
     }
   };
-  
 
   const DynamicCalendar = dynamic(() => import("react-calendar"), {
     ssr: false,
@@ -84,8 +97,8 @@ export default function Table() {
 
   useEffect(() => {
     if (listId !== null) {
-      checkDatabaseUpdates();
-      const interval = setInterval(checkDatabaseUpdates, 90 * 1000);
+      updateProducts();
+      const interval = setInterval(updateProducts, 90 * 1000);
       return () => {
         clearInterval(interval);
       };
@@ -96,7 +109,7 @@ export default function Table() {
     const loadMarkedDates = async () => {
       try {
         const lists = await appUtil.findAllList();
-        const formattedDates = lists.map(list => list.dateList);
+        const formattedDates = lists.map((list) => list.dateList);
         setMarkedDates(formattedDates);
       } catch (error) {
         console.error("Erro ao carregar as datas marcadas: ", error);
@@ -105,6 +118,10 @@ export default function Table() {
 
     loadMarkedDates();
   }, []);
+
+  useEffect(() => {
+    handleSearchList(); // Realizar busca inicial ao carregar a página
+  }, []); // Array vazio indica que isso só acontece uma vez
 
   return (
     <>
@@ -131,7 +148,7 @@ export default function Table() {
           </button>
         </div>
 
-        {listId !== null && (
+        {listId !== null && products.length > 0 && (
           <table className={styles.tbZebra}>
             <thead>
               <tr>
@@ -147,7 +164,7 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              {list.map((product, index) => {
+              {products.map((product, index) => {
                 const isProductChecked = checkedItems[product.id] || false;
                 const rowClass = isProductChecked ? styles.checkedRow : "";
 
@@ -176,11 +193,13 @@ export default function Table() {
             </tbody>
           </table>
         )}
-
-        {listId === null && (
-          <p>{returnList}</p>
+        {listId !== null && products.length === 0 && (
+          <p>A lista da data escolhida está vazia, mas você pode cadastra produtos nela.</p>
         )}
+        {listId === null && <p>{message}</p>}
       </div>
     </>
   );
-}
+};
+
+export default Table;
