@@ -9,20 +9,27 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import styles from "../styles/Header.module.css";
+import { useRouter } from "next/router";
 
 interface HeaderProps {
   page?: string;
 }
 
-function clearLocalStorage() {
-  localStorage.clear();
-}
-
 export default function Header(props: HeaderProps) {
+  const router = useRouter();
+  
+  function clearLocalStorage() {
+    localStorage.removeItem("mylist@idUser");
+    localStorage.removeItem("mylist@token");
+    localStorage.clear();
+    router.push("/login"); // Redirecione para a página de login
+    
+  }
+
   return (
     <>
       <div className={styles.menu}>
-        <Link href="/">
+        <Link href="/home">
           <a>
             <HomeIcon />
             <span>Home</span>
@@ -46,9 +53,9 @@ export default function Header(props: HeaderProps) {
             <span>Gastos</span>
           </a>
         </Link>
-        <Link href="/login">
+        <Link href="/">
           <a onClick={clearLocalStorage} className={styles.exitLink}>
-            <XMarkIcon />{" "}
+            <XMarkIcon />
             <span>Sair</span>
           </a>
         </Link>

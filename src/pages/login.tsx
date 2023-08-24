@@ -22,7 +22,7 @@ export default function Login() {
         localStorage.setItem("mylist@token", JSON.stringify(response.data.token));
        // Armazenar o email no LocalStorage
        localStorage.setItem("mylist@idUser", response.data.idUser);
-        router.push("/");
+        router.push("/home");
       } catch (error) {
         setErrorMessage("Login ou senha incorretos.");
       }
@@ -53,7 +53,7 @@ export default function Login() {
         />
         {errorMessage && <p className={styles.aviso}>{errorMessage}</p>}
         <div>
-          <Link href="/">Esqueci minha senha</Link>
+          <Link href="">Esqueci minha senha</Link>
           <Link className={styles.insc} href="/newUser">
             Me cadastrar
           </Link>
